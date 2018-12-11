@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Document</title>
+</head>
+<body>
+    <p>First, input wrong ID or Password and push submit button.</p>
+    <p>Next, input correct ID and Password and push submit button.</p>
+    <label for="id">ID</label>
+    <input type="text" name="label" id="id">
+    <label for="password">Password</label>
+    <input type="text" name="password" id="password">
+    <button type="button" id="submit">submit</button>
+    <script>
+        const { ipcRenderer } = require('electron')
+        document.getElementById('submit').addEventListener('click', () => {
+            const id = document.getElementById('id').value
+            const password = document.getElementById('password').value
+            ipcRenderer.send('finished', {id, password})
+        })
+    </script>
+</body>
+</html>
