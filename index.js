@@ -1,6 +1,7 @@
 'use strict'
 
 const { app, BrowserWindow, ipcMain } = require('electron')
+const path = require("path")
 
 let reservedLoginCallback = null
 let window = null
@@ -18,7 +19,9 @@ app.on('ready', () => {
         if (authInfo.isProxy) {
             event.preventDefault()
             reservedLoginCallback = callback
-            proxy = new BrowserWindow({width: 400, height: 300})
+            proxy = new BrowserWindow({width: 400, height: 300,  webPreferences: {
+                preload: path.resolve(path.join(__dirname, 'preload.js')),
+            },})
             proxy.loadURL(`file://${__dirname}/index.html`)
         }
     })

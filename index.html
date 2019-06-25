@@ -12,7 +12,7 @@
     <input type="text" name="password" id="password">
     <button type="button" id="submit">submit</button>
     <script>
-        const { ipcRenderer } = require('electron')
+        const ipcRenderer = window.ipcRenderer
         document.getElementById('submit').addEventListener('click', () => {
             const id = document.getElementById('id').value
             const password = document.getElementById('password').value
