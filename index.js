@@ -10,7 +10,7 @@ let proxy = null
 app.on('ready', () => {
     ipcMain.on('finished', (event, {id, password}) => {
         proxy.close()
-        // This callback doesn't work in second time and doesn't trigger 'login' event, in Electron v3.0.10
+        // This callback doesn't work in second time and doesn't trigger 'login' event, in Electron v5.0.5
         // But this work well in Electron v2.0.14
         reservedLoginCallback(id, password)
         reservedLoginCallback = null
