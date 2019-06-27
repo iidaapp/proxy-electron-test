@@ -6,7 +6,7 @@ const path = require("path")
 let reservedLoginCallback = null
 let window = null
 let proxy = null
-let authenticating = false
+let loginCount = 0
 let needRestart = false
 let didFinishLoad = false
 
@@ -22,7 +22,7 @@ app.on('ready', () => {
         if (!authInfo.isProxy) {
             return
         }
-        if (authenticating) {
+        if (loginCount > 0) {
             return
         }
         event.preventDefault()
@@ -31,7 +31,7 @@ app.on('ready', () => {
             preload: path.resolve(path.join(__dirname, 'preload.js')),
         },})
         proxy.loadURL(`file://${__dirname}/index.html`)
-        authenticating = true
+        loginCount++
     })
     window = new BrowserWindow({width: 700, height: 500})
     window.loadURL('https://www.google.com/')
