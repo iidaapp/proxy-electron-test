@@ -18,20 +18,20 @@ app.on('ready', () => {
         reservedLoginCallback(id, password)
         reservedLoginCallback = null
     })
-    app.on('login', (event, _, _, authInfo, callback) => {
+    app.on('login', (event, webContents, request, authInfo, callback) => {
         if (!authInfo.isProxy) {
             return
         }
-        if (!authenticating) {
-            event.preventDefault()
-            reservedLoginCallback = callback
-            proxy = new BrowserWindow({width: 400, height: 300,  webPreferences: {
-                preload: path.resolve(path.join(__dirname, 'preload.js')),
-            },})
-            proxy.loadURL(`file://${__dirname}/index.html`)
-            authenticating = true
+        if (authenticating) {
             return
         }
+        event.preventDefault()
+        reservedLoginCallback = callback
+        proxy = new BrowserWindow({width: 400, height: 300,  webPreferences: {
+            preload: path.resolve(path.join(__dirname, 'preload.js')),
+        },})
+        proxy.loadURL(`file://${__dirname}/index.html`)
+        authenticating = true
     })
     window = new BrowserWindow({width: 700, height: 500})
     window.loadURL('https://www.google.com/')
