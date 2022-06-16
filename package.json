@@ -9,6 +9,6 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "electron": "3.0.10"
+    "electron": "15.5.5"
   }
 }
